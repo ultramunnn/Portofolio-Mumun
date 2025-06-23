@@ -1,4 +1,3 @@
-import p1Image from "../assets/p1.png";
 
 const API_URL = "http://localhost:5000/api";
 
@@ -34,53 +33,10 @@ export const addProject = async (project) => {
   }
 };
 
-// For development/testing purposes, we'll include some mock data
-export const mockProjects = [
-  {
-    id: 1,
-    image: p1Image,
-    title: "Project 1",
-    description:
-      "Description for Project 1. This is a sample project description that showcases the project details.",
-    projectLink: "https://project1.example.com",
-  },
-  {
-    id: 3,
-    image: p1Image,
-    title: "Project 2",
-    description:
-      "Description for Project 2. Another sample project with its own unique description.",
-    projectLink: "https://project2.example.com",
-  },
-  {
-    id: 4,
-    image: p1Image,
-    title: "Project 2",
-    description:
-      "Description for Project 2. Another sample project with its own unique description.",
-    projectLink: "https://project2.example.com",
-  },
-  {
-    id: 5,
-    image: p1Image,
-    title: "Project 2",
-    description:
-      "Description for Project 2. Another sample project with its own unique description.",
-    projectLink: "https://project2.example.com",
-  },
-  {
-    id: 2,
-    image: p1Image,
-    title: "Project 2",
-    description:
-      "Description for Project 2. Another sample project with its own unique description.",
-    projectLink: "https://project2.example.com",
-  },
-  // Add more mock projects as needed
-];
+
 
 export default {
   getProjects,
   addProject,
-  mockProjects,
+  
 };

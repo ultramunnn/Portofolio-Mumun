@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import CardProjects from "../components/CardProjects";
-import { getProjects, mockProjects } from "../services/projectsService";
+import { getProjects } from "../services/projectsService";
 import BlobImage from "../assets/blob_project.svg";
 
 const Projects = () => {
@@ -23,10 +23,10 @@ const Projects = () => {
         setLoading(false);
         setError(null);
       } catch (err) {
-        console.error("Falling back to mock data:", err);
-        setProjects(mockProjects);
+        console.error("Falling back to data:", err);
+        
         setLoading(false);
-        setError("Failed to fetch projects. Showing mock data.");
+        setError("Failed to fetch projects. Showing data.");
       }
     };
 
