@@ -1,12 +1,147 @@
-# React + Vite
+# My Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive portfolio website built with React and Node.js, featuring a clean design with interactive elements and smooth animations.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Responsive design that works on all devices
+- Interactive UI with smooth animations and transitions
+- Dynamic project showcase
+- Skills presentation with categories
+- Contact form
+- Custom cursor effects
+- Glass morphism design elements
+- Image optimization for better performance
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+
+- React 19
+- Vite
+- TailwindCSS
+- GSAP for animations
+- React Router for navigation
+
+### Backend
+
+- Node.js
+- Express.js
+- MySQL Database
+- Multer for file uploads
+- Sharp for image optimization
+
+## 🏃‍♂️ Running the Project
+
+### Prerequisites
+
+- Node.js (Latest LTS version recommended)
+- MySQL
+
+### Frontend Setup
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Visit `http://localhost:5173` in your browser
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file with your database configuration:
+   ```env
+   DB_HOST=localhost
+   DB_USER=your_username
+   DB_PASSWORD=your_password
+   DB_DATABASE=your_database_name
+   PORT=3000
+   ```
+4. Start the server:
+   ```bash
+   npm run dev
+   ```
+
+## 📁 Project Structure
+
+```
+├── src/
+│   ├── components/      # Reusable UI components
+│   ├── pages/          # Page components
+│   ├── assets/         # Static assets
+│   ├── services/       # API services
+│   └── styles/         # Global styles
+├── backend/
+│   ├── config/         # Database configuration
+│   ├── routes/         # API routes
+│   ├── utils/          # Utility functions
+│   └── public/         # Uploaded files
+```
+
+## 🛠 Development
+
+- Run `npm run dev` to start the development server
+- Run `npm run build` to create a production build
+- Run `npm run preview` to preview the production build
+- Run `npm run lint` to lint the code
+
+## 📱 Features by Page
+
+### Home
+
+- Professional introduction
+- Dynamic profile image with hover effects
+- Quick navigation to other sections
+
+### Projects
+
+- Showcase of personal projects
+- Interactive project cards
+- Project details and links
+
+### Skills
+
+- Categorized skill presentation
+- Visual skill level indicators
+- Animated skill cards
+
+### About
+
+- Professional background
+- Personal journey
+- Technologies and tools
+
+### Contact
+
+- Contact form
+- Social media links
+- Professional connections
+
+## 🎨 Design Features
+
+- Custom animated cursor
+- Glassmorphism effects
+- Responsive design
+- Smooth page transitions
+- Interactive hover effects
+- Modern color scheme
+
+## 🔧 Maintenance
+
+The project uses ESLint for code quality and follows modern React best practices. Regular updates to dependencies are recommended to maintain security and performance.
+
+---
+
+Feel free to reach out if you have any questions or suggestions!
