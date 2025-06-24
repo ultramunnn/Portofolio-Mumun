@@ -141,6 +141,32 @@
 
           <div>
             <label class="block text-sm font-medium text-gray-700"
+              >Tech Stacks</label
+            >
+            <div
+              class="flex flex-wrap gap-2 mb-2"
+              id="selectedTechStacks"
+            ></div>
+            <div class="flex gap-2">
+              <input
+                type="text"
+                id="techStackInput"
+                placeholder="Enter tech stack"
+                class="flex-1 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              />
+              <button
+                type="button"
+                onclick="addTechStack()"
+                class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+              >
+                Add Tech
+              </button>
+            </div>
+            <input type="hidden" name="techStacks" id="techStacksInput" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700"
               >Project Image</label
             >
             <input
@@ -262,6 +288,43 @@
         }
       }
 
+      // Tech Stack Management
+      const techStacks = new Set();
+
+      function addTechStack() {
+        const input = document.getElementById("techStackInput");
+        const tech = input.value.trim();
+
+        if (tech && !techStacks.has(tech)) {
+          techStacks.add(tech);
+          updateTechStacksDisplay();
+          input.value = "";
+        }
+      }
+
+      function removeTechStack(tech) {
+        techStacks.delete(tech);
+        updateTechStacksDisplay();
+      }
+
+      function updateTechStacksDisplay() {
+        const container = document.getElementById("selectedTechStacks");
+        const input = document.getElementById("techStacksInput");
+
+        container.innerHTML = Array.from(techStacks)
+          .map(
+            (tech) => `
+          <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md flex items-center gap-2">
+            ${tech}
+            <button type="button" onclick="removeTechStack('${tech}')" class="text-red-500 hover:text-red-700">×</button>
+          </span>
+        `
+          )
+          .join("");
+
+        input.value = JSON.stringify(Array.from(techStacks));
+      }
+
       // Projects management
       document
         .querySelector('input[name="image"]')
@@ -280,19 +343,32 @@
           e.preventDefault();
           const formData = new FormData(this);
 
+          // Make sure techStacks are added to formData correctly
+          const techStacksInput = document.getElementById("techStacksInput");
+          if (techStacksInput.value) {
+            formData.set("techStacks", techStacksInput.value);
+          }
+
           try {
             const response = await fetch("/api/projects", {
               method: "POST",
               body: formData,
             });
 
-            if (!response.ok) throw new Error("Failed to add project");
+            if (!response.ok) {
+              const error = await response.json();
+              throw new Error(error.message || "Failed to add project");
+            }
 
+            const result = await response.json();
             showNotification("Project added successfully");
             this.reset();
             document.getElementById("projectPreview").innerHTML = "";
+            techStacks.clear();
+            updateTechStacksDisplay();
             loadProjects();
           } catch (error) {
+            console.error("Error:", error);
             showNotification(error.message, true);
           }
         });
@@ -305,18 +381,35 @@
           document.getElementById("projectsList").innerHTML = projects
             .map(
               (project) => `
-                    <div class="border p-4 rounded-md">
-                        <div class="flex space-x-4">
-                            <img src="${project.image_url}" alt="${project.title}" class="w-32 h-32 object-cover rounded">
-                            <div class="flex-1">
-                                <h3 class="font-semibold text-lg">${project.title}</h3>
-                                <p class="text-gray-600 mt-1">${project.description}</p>
-                                <a href="${project.project_url}" target="_blank" class="text-blue-500 hover:underline mt-2 inline-block">View Project</a>
-                            </div>
-                            <button onclick="deleteProject(${project.id})" class="text-red-500 hover:text-red-700">Delete</button>
-                        </div>
-                    </div>
-                `
+            <div class="border p-4 rounded-md">
+              <div class="flex space-x-4">
+                <img src="${project.image_url}" alt="${
+                project.title
+              }" class="w-32 h-32 object-cover rounded">
+                <div class="flex-1">
+                  <h3 class="font-semibold text-lg">${project.title}</h3>
+                  <p class="text-gray-600 mt-1">${project.description}</p>
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    ${(project.techStacks || [])
+                      .map(
+                        (tech) => `
+                      <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-md text-sm">
+                        ${tech}
+                      </span>
+                    `
+                      )
+                      .join("")}
+                  </div>
+                  <a href="${
+                    project.project_url
+                  }" target="_blank" class="text-blue-500 hover:underline mt-2 inline-block">View Project</a>
+                </div>
+                <button onclick="deleteProject(${
+                  project.id
+                })" class="text-red-500 hover:text-red-700">Delete</button>
+              </div>
+            </div>
+          `
             )
             .join("");
         } catch (error) {

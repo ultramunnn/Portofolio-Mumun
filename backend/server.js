@@ -2,6 +2,10 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from 'dotenv';
+import process from 'process';
+
+dotenv.config();
 import skillsRouter from "./routes/skills.js";
 import projectsRouter from "./routes/projects.js";
 
@@ -9,7 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());

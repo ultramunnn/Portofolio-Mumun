@@ -24,7 +24,7 @@ const Projects = () => {
         setError(null);
       } catch (err) {
         console.error("Falling back to data:", err);
-        
+
         setLoading(false);
         setError("Failed to fetch projects. Showing data.");
       }
@@ -71,6 +71,7 @@ const Projects = () => {
               title={project.title}
               description={project.description}
               projectLink={project.projectLink}
+              techStacks={project.techStacks}
             />
           ))}
         </div>
